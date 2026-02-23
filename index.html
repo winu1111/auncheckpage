@@ -3,24 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <title>謎解き判定</title>
+
+<style>
+
+/* 画面中央に配置する魔法 */
+body{
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #f0f0f0;
+font-family: sans-serif;
+}
+
+/* 判定ボックス */
+.box{
+background: white;
+padding: 30px;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0,0,0,0.2);
+text-align: center;
+}
+
+input{
+margin: 5px;
+padding: 5px;
+}
+
+button{
+margin-top: 10px;
+padding: 5px 15px;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>答えを入力するのじゃ！</h1>
+<div class="box">
 
-<input type="text" id="answer">
+<h2>4つの答えを入力するのじゃ！</h2>
+
+<input type="text" id="a1" placeholder="答え1"><br>
+<input type="text" id="a2" placeholder="答え2"><br>
+<input type="text" id="a3" placeholder="答え3"><br>
+<input type="text" id="a4" placeholder="答え4"><br>
+
 <button onclick="check()">判定</button>
 
 <p id="result"></p>
+
+</div>
+
 
 <script>
 
 function check(){
 
-var ans = document.getElementById("answer").value;
+var a1 = document.getElementById("a1").value;
+var a2 = document.getElementById("a2").value;
+var a3 = document.getElementById("a3").value;
+var a4 = document.getElementById("a4").value;
 
-if(ans == "さくら"){
+
+/* ここに正解を書くのじゃ */
+
+if(
+a1 == "赤" &&
+a2 == "青" &&
+a3 == "緑" &&
+a4 == "黄"
+){
 
 document.getElementById("result").innerHTML = "正解じゃ！おめでとう！";
 
@@ -33,6 +87,7 @@ document.getElementById("result").innerHTML = "違うのじゃ…";
 }
 
 </script>
+
 
 </body>
 </html>
