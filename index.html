@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>謎解き判定</title>
+</head>
+
+<body>
+
+<h1>答えを入力するのじゃ！</h1>
+
+<input type="text" id="answer">
+<button onclick="check()">判定</button>
+
+<p id="result"></p>
+
+<script>
+
+function check(){
+
+var ans = document.getElementById("answer").value;
+
+if(ans == "さくら"){
+
+document.getElementById("result").innerHTML = "正解じゃ！おめでとう！";
+
+}else{
+
+document.getElementById("result").innerHTML = "違うのじゃ…";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
