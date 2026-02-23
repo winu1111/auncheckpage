@@ -2,52 +2,75 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>阿吽</title>
+<title>謎解き判定</title>
 
 <style>
 
-/* 画面中央に配置する魔法 */
+/* 背景イラスト設定 */
 body{
-height: 100vh;
 margin: 0;
+height: 100vh;
+
+background-image: url("haikei.png");
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+
 position: relative;
+font-family: sans-serif;
 }
 
-/* 判定ボックス */
+
+/* 四隅の判定ボックス */
 .box{
 position: absolute;
-background: white;
-padding: 30px;
+background: rgba(255,255,255,0.9);
+padding: 15px;
 border-radius: 10px;
-box-shadow: 0 0 10px rgba(0,0,0,0.2);
+box-shadow: 0 0 10px rgba(0,0,0,0.3);
+width: 150px;
+text-align: center;
 }
 
-/* 左上 */
+
+/* 四隅の位置 */
 .left-top{
 top: 20px;
 left: 20px;
 }
 
-
-/* 左下 */
-.left-bottom{
-bottom: 20px;
-left: 20px;
-}
-
-
-/* 右上 */
 .right-top{
 top: 20px;
 right: 20px;
 }
 
+.left-bottom{
+bottom: 20px;
+left: 20px;
+}
 
-/* 右下 */
 .right-bottom{
 bottom: 20px;
 right: 20px;
 }
+
+
+/* 中央の最終判定ボタン */
+
+.center{
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+text-align: center;
+background: rgba(255,255,255,0.9);
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+
+/* ボタンデザイン */
 
 button{
 margin-top: 10px;
@@ -58,31 +81,53 @@ padding: 5px 15px;
 
 </head>
 
+
+
 <body>
 
-<h2>4つの答えを入力するのじゃ！</h2>
 
-<div class="box left-top">左上の判定</div>
-<div class="box left-bottom">左下の判定</div>
-<div class="box right-top">右上の判定</div>
-<div class="box right-bottom">右下の判定</div>
+<div class="box left-top">
+<p>左上</p>
+<input type="text" id="a1">
+</div>
 
-<button class="button" onclick="check()">最終判定</button>
+  
+<div class="box right-top">
+<p>右上</p>
+<input type="text" id="a2">
+</div>
 
+
+<div class="box left-bottom">
+<p>左下</p>
+<input type="text" id="a3">
+</div>
+
+  
+<div class="box right-bottom">
+<p>右下</p>
+<input type="text" id="a4">
+</div>
+
+
+<div class="center">
+<button onclick="check()">最終判定</button>
 <p id="result"></p>
+</div>
+
+
 
 
 <script>
-
 function check(){
-
 var a1 = document.getElementById("a1").value;
 var a2 = document.getElementById("a2").value;
 var a3 = document.getElementById("a3").value;
 var a4 = document.getElementById("a4").value;
 
 
-/* ここに正解を書くのじゃ */
+
+/* 正解を書く場所 */
 
 if(
 a1 == "いろり" &&
@@ -101,7 +146,9 @@ document.getElementById("result").innerHTML = "違うのじゃ…";
 
 }
 
+
 </script>
+
 
 
 </body>
