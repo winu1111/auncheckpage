@@ -2,154 +2,176 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>謎解き判定</title>
+<title>謎解き解答ページ</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 
-/* 背景イラスト設定 */
+/* =========================
+   全体設定
+========================= */
+
 body{
-margin: 0;
-height: 100vh;
+margin:0;
+font-family:sans-serif;
+background:#f5f5f5;
+}
 
-background-image: url("haikei.png");
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
+/* コンテナ */
+.wrapper{
+position:relative;
+max-width:1000px;
+margin:0 auto;
+}
 
-position: relative;
-font-family: sans-serif;
+/* 問題画像 */
+.main-image{
+width:100%;
+display:block;
+}
+
+/* =========================
+   女の子（左右固定）
+========================= */
+
+.girl-left,
+.girl-right{
+position:fixed;
+bottom:0;
+width:220px;
+z-index:0;
+}
+
+.girl-left{
+left:0;
+}
+
+.girl-right{
+right:0;
+}
+
+/* =========================
+   解答欄
+========================= */
+
+.answer{
+position:absolute;
+z-index:10;
+}
+
+.answer input{
+padding:8px;
+font-size:16px;
+width:120px;
+border-radius:6px;
+border:2px solid #333;
 }
 
 
-/* 四隅の判定ボックス */
-.box{
-position: absolute;
-background: rgba(255,255,255,0.9);
-padding: 15px;
-border-radius: 10px;
-box-shadow: 0 0 10px rgba(0,0,0,0.3);
-width: 150px;
-text-align: center;
+/* 4問の位置（PC基準） */
+
+.a1{ top:12%; left:18%; }
+.a2{ top:12%; right:18%; }
+.a3{ bottom:22%; left:18%; }
+.a4{ bottom:22%; right:18%; }
+
+
+/* =========================
+   中央判定ボタン
+========================= */
+
+.center-check{
+text-align:center;
+margin:30px 0;
 }
-
-
-/* 四隅の位置 */
-.left-top{
-top: 200px;
-left: 200px;
-}
-
-.right-top{
-top: 200px;
-right: 200px;
-}
-
-.left-bottom{
-bottom: 200px;
-left: 200px;
-}
-
-.right-bottom{
-bottom: 200px;
-right: 200px;
-}
-
-
-/* 中央の最終判定ボタン */
-
-.center{
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%,-50%);
-text-align: center;
-background: rgba(255,255,255,0.9);
-padding: 20px;
-border-radius: 10px;
-box-shadow: 0 0 15px rgba(0,0,0,0.4);
-}
-
-
-/* ボタンデザイン */
 
 button{
-margin-top: 10px;
-padding: 5px 15px;
+padding:10px 20px;
+font-size:18px;
+border-radius:8px;
+border:none;
+background:#333;
+color:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#555;
+}
+
+/* =========================
+   スマホ対応
+========================= */
+
+@media screen and (max-width:768px){
+
+.girl-left,
+.girl-right{
+display:none;
+}
+
+.answer{
+position:static;
+margin:15px auto;
+text-align:center;
+}
+
+.wrapper{
+padding:10px;
+}
+
 }
 
 </style>
-
 </head>
-
-
 
 <body>
 
+<!-- 左右の女の子 -->
+<img src="girl_left.png" class="girl-left">
+<img src="girl_right.png" class="girl-right">
 
-<div class="box left-top">
-<p>左上</p>
-<input type="text" id="a1">
-</div>
+<div class="wrapper">
 
-  
-<div class="box right-top">
-<p>右上</p>
-<input type="text" id="a2">
-</div>
+<img src="problem.png" class="main-image">
 
+<!-- 解答欄 -->
+<div class="answer a1"><input type="text" id="a1" placeholder="解答①"></div>
+<div class="answer a2"><input type="text" id="a2" placeholder="解答②"></div>
+<div class="answer a3"><input type="text" id="a3" placeholder="解答③"></div>
+<div class="answer a4"><input type="text" id="a4" placeholder="解答④"></div>
 
-<div class="box left-bottom">
-<p>左下</p>
-<input type="text" id="a3">
-</div>
-
-  
-<div class="box right-bottom">
-<p>右下</p>
-<input type="text" id="a4">
-</div>
-
-
-<div class="center">
+<div class="center-check">
 <button onclick="check()">最終判定</button>
 <p id="result"></p>
 </div>
 
-
-
+</div>
 
 <script>
+
 function check(){
+
 var a1 = document.getElementById("a1").value;
 var a2 = document.getElementById("a2").value;
 var a3 = document.getElementById("a3").value;
 var a4 = document.getElementById("a4").value;
 
-
-
-/* 正解を書く場所 */
-
 if(
-a1 == "いろり" &&
-a2 == "あかし" &&
-a3 == "はいいん" &&
-a4 == "しろっぷ"
+a1=="答え1" &&
+a2=="答え2" &&
+a3=="答え3" &&
+a4=="答え4"
 ){
-
-document.getElementById("result").innerHTML = "正解じゃ！おめでとう！";
-
+document.getElementById("result").innerHTML="正解！";
 }else{
-
-document.getElementById("result").innerHTML = "違うのじゃ…";
-
+document.getElementById("result").innerHTML="違います";
 }
 
 }
-
 
 </script>
-
-
 
 </body>
 </html>
