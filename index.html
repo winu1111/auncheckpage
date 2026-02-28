@@ -84,19 +84,35 @@ cursor:pointer;
 
 /* クリア画像 */
 .clear-area{
-  display:none;
-  text-align:center;
-  margin-top:20px;
+   opacity:0;
+  transform:translateY(20px);
+  transition:all 0.6s ease;
+
+  width:80%;
+  max-width:400px;
+  margin:30px auto;
   padding:20px;
-  background:#fff;
-  border-radius:10px;
-  box-shadow:0 0 15px rgba(0,0,0,0.1);
+
+  background:white;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+
+  text-align:center;
+  pointer-events:none;
+}
+
+/* 表示状態 */
+.clear-area.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
 }
 
 .clear-text{
-  font-size:24px;
-  color:#d33;
+  font-size:22px;
   font-weight:bold;
+  color:#d33;
+  margin-bottom:10px;
 }
 
 /* ===== スマホ対応 ===== */
@@ -156,7 +172,7 @@ padding:10px;
 
   <p>
     制作者：
-    <a href="https://twitter.com/あなたのID" target="_blank">
+    <a href="https://x.com/CctieG" target="_blank">
       ゐぬ娘
     </a>
   </p>
@@ -191,7 +207,7 @@ list3.includes(a3) &&
 list4.includes(a4)
 ){
  // 表示する
-    document.getElementById("clearArea").style.display = "block";
+    document.getElementById("clearArea").classList.add("show");
 
     // ツイート内容を生成
     var tweetText = "一緒にステップを踏もうぜ。";
