@@ -20,11 +20,11 @@ max-width:1000px;
 margin:0 auto;
 }
 
-/* 問題画像 */
-.main-image{
-width:30%;
-display:block;
-position: center;
+/* タイトル画像 */
+.title-image{
+  display:block;
+  margin:0 auto 20px auto;
+  max-width:300px;
 }
 
 /* 解答欄共通 */
@@ -101,8 +101,6 @@ padding:10px;
 
 <div class="wrapper">
 
-<img src="aun_title.png" class="main-image">
-
 <!-- 左上（赤） -->
 <div class="answer a1 left">
 <input type="text" id="a1" placeholder="左上の解答">
@@ -124,8 +122,12 @@ padding:10px;
 </div>
 
 <div class="center-check">
-<button onclick="check()">最終判定</button>
-<p id="result"></p>
+
+  <img src="aun_title.png" class="title-image">
+
+  <button onclick="check()">最終判定</button>
+  <p id="result"></p>
+
 </div>
 
 </div>
