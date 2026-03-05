@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>めぐる解答ページ</title>
+
+<title>謎解き解答ページ</title>
 
 <style>
 
@@ -13,48 +14,35 @@ background:#ffffff;
 font-family:sans-serif;
 }
 
-/* 中央コンテナ */
+/* 全体 */
 .wrapper{
-position:relative;
-max-width:1000px;
-margin:0 auto;
-min-height:500px;
-}
-  
-/* タイトル画像 */
-.title-area{
-  text-align:center;
-  margin:30px 0;
-}
-
-.title-image{
-  max-width:300px;
-  width:80%;
-}
-
-/* 解答欄共通 */
-.answer{
+max-width:900px;
+margin:auto;
 text-align:center;
+padding:20px;
 }
+
+/* タイトル */
+.title-image{
+width:80%;
+max-width:320px;
+margin-bottom:20px;
+}
+
+/* 入力欄 */
 
 .answer input{
-padding:10px;
+padding:12px;
 font-size:16px;
-width:130px;
+width:180px;
 border-radius:8px;
-border:3px solid;
-background:white;
-border-color:#393939;
-box-shadow:0 0 10px rgba(0,0,0,1.4);
+border:3px solid #333;
 }
 
-/* 中央ボタン */
-.center-check{
-text-align:center;
-margin:30px 0;
-}
+/* ボタン */
 
 button{
+margin-top:20px;
 padding:12px 25px;
 font-size:18px;
 border:none;
@@ -64,109 +52,111 @@ color:white;
 cursor:pointer;
 }
 
-/* Step2 */
-.step2-area,
-.clear-area{
+/* エラーメッセージ */
 
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%) translateY(20px);
-
-  opacity:0;
-  transition:all 0.6s ease;
-
-  width:80%;
-  max-width:400px;
-  padding:20px;
-
-  background:white;
-  border-radius:15px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
-
-  text-align:center;
-  pointer-events:none;
+#result{
+margin-top:15px;
+color:#d33;
+font-weight:bold;
 }
 
-/* step2表示状態 */
-.step2-image{
-  max-width:300px;
-  width:80%;
+/* 表示ボックス */
+
+.box{
+
+opacity:0;
+transform:translateY(20px);
+transition:0.6s;
+
+width:80%;
+max-width:400px;
+
+margin:30px auto;
+padding:20px;
+
+background:white;
+
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+
+pointer-events:none;
 }
 
-.step2-area.show,
-.clear-area.show{
-  opacity:1;
-  transform:translate(-50%,-50%) translateY(0);
-  pointer-events:auto;
+/* 表示状態 */
+
+.box.show{
+opacity:1;
+transform:translateY(0);
+pointer-events:auto;
 }
 
-.step2-text,
-.clear-text{
-  font-size:22px;
-  font-weight:bold;
-  color:#d33;
-  margin-bottom:10px;
+/* 見出し */
+
+.box-title{
+font-size:22px;
+font-weight:bold;
+color:#d33;
+margin-bottom:10px;
 }
 
-/* ===== スマホ対応 ===== */
+/* 画像 */
 
-@media screen and (max-width:768px){
-
-.answer{
-position:static;
-margin:15px auto;
-text-align:center;
-}
-
-.wrapper{
-padding:10px;
-}
-
+.box img{
+width:80%;
+max-width:300px;
+margin-top:10px;
 }
 
 </style>
 </head>
 
 <body>
-  
+
 <div class="wrapper">
 
-<div class="title-area">
-    <img src="meguru_title.png" class="title-image">
-</div>
-  
-<div class="answer a1 left">
-  <input type="text" id="a1" placeholder="最終回答を入力">
+<img src="title.png" class="title-image">
+
+<div class="answer">
+<input type="text" id="answer" placeholder="答えを入力">
 </div>
 
-<div class="center-check">
-  <button onclick="check()">判定</button>
-  <p id="result"></p>
+<button onclick="check()">判定</button>
+
+<p id="result"></p>
+
+
+<!-- Step表示 -->
+
+<div class="box" id="stepBox">
+
+<p class="box-title">正解！</p>
+
+<p>Step2</p>
+
+<img src="step2.png">
+
 </div>
 
-<div class="step2-area" id="step2Area">
-  <p class="step2-text"> 正解 </p>
-  <p> Step2 </p>
-  
-    <img src="meguru_step2.png" class="step2-image">
 
-</div>
+<!-- Clear表示 -->
 
-<div class="clear-area" id="clearArea">
-  <p class="clear-text"> 正解！ </p>
-  <p>
-    作者：
-    <a href="https://x.com/CctieG" target="_blank">
-      ゐぬ娘
-    </a>
-  </p>
+<div class="box" id="clearBox">
 
-  <p>
-    <a id="tweetLink" target="_blank">
-      クリアをツイートする
-    </a>
-  </p>
+<p class="box-title">CLEAR！</p>
+
+<p>
+作者：
+<a href="https://x.com/USERNAME" target="_blank">
+作者名
+</a>
+</p>
+
+<p>
+<a id="tweetLink" target="_blank">
+クリアをツイートする
+</a>
+</p>
+
 </div>
 
 </div>
@@ -175,36 +165,62 @@ padding:10px;
 
 function check(){
 
-var result = document.getElementById("result");
-var step2Area = document.getElementById("step2Area");
+var input =
+document.getElementById("answer").value;
+
+var result =
+document.getElementById("result");
+
+var stepBox =
+document.getElementById("stepBox");
+
+var clearBox =
+document.getElementById("clearBox");
+
+/* 初期化 */
+
+result.innerHTML="";
+stepBox.classList.remove("show");
+clearBox.classList.remove("show");
+
+/* 答え */
+
+var stepAnswer =
+["たけうま","タケウマ","竹馬"];
+
+var finalAnswer =
+["あんさー","アンサー"];
 
 
-result.innerHTML = "";
-step2Area.classList.remove("show");
+/* 判定 */
 
-var a1=document.getElementById("a1").value;
+if(stepAnswer.includes(input)){
 
-var list1 = ["たけうま","タケウマ","竹馬"];
-var list2 = ["あんさー","アンサー"];
+stepBox.classList.add("show");
 
-if(
-  list1.includes(a1)
-  ){
-   // 表示する
-      document.getElementById("step2Area").classList.add("show");
-}else if(
-  list2.includes(a1)
-  ){
-   // 表示する
-      document.getElementById("clearArea").classList.add("show");
-  
-      // ツイート内容を生成
-      var tweetText = "一緒にステップを踏もうぜ。";
-      var tweetURL = "https://twitter.com/intent/tweet?text="
-        + encodeURIComponent(tweetText);
-      document.getElementById("tweetLink").href = tweetURL;
-}else{
-document.getElementById("result").innerHTML="何かが違うようです";
+}
+
+else if(finalAnswer.includes(input)){
+
+clearBox.classList.add("show");
+
+/* ツイート */
+
+var tweetText=
+"謎解きをクリアした！";
+
+var tweetURL=
+"https://twitter.com/intent/tweet?text="
++ encodeURIComponent(tweetText);
+
+document.getElementById("tweetLink").href=tweetURL;
+
+}
+
+else{
+
+result.innerHTML="何かが違うようです";
+
 }
 
 }
