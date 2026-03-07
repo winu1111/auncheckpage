@@ -1,1 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BETASTEP解答ページ</title>
 
+<style>
+
+body{
+margin:0;
+background:#ffffff;
+font-family:sans-serif;
+}
+
+/* 中央コンテナ */
+.wrapper{
+position:relative;
+max-width:1000px;
+margin:0 auto;
+}
+
+/* タイトル画像 */
+.title-area{
+  text-align:center;
+  margin:30px 0;
+}
+
+.title-image{
+  max-width:300px;
+  width:80%;
+}
+
+/* 解答欄共通 */
+.answer{
+text-align:center;
+}
+
+.answer input{
+padding:10px;
+font-size:16px;
+width:130px;
+border-radius:8px;
+border:3px solid;
+background:white;
+border-color:#27a2cf;
+box-shadow:0 0 10px rgba(0,0,255,0.4);
+}
+
+/* 中央ボタン */
+.center-check{
+text-align:center;
+margin:30px 0;
+}
+
+button{
+padding:12px 25px;
+font-size:18px;
+border:none;
+border-radius:8px;
+background:#333;
+color:white;
+cursor:pointer;
+}
+
+/* クリア画像 */
+.clear-area{
+   opacity:0;
+  transform:translateY(20px);
+  transition:all 0.6s ease;
+
+  width:80%;
+  max-width:400px;
+  margin:30px auto;
+  padding:20px;
+
+  background:white;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+
+  text-align:center;
+  pointer-events:none;
+}
+
+/* 表示状態 */
+.clear-area.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+.clear-text{
+  font-size:22px;
+  font-weight:bold;
+  color:#1d6295;
+  margin-bottom:10px;
+}
+
+/* ===== スマホ対応 ===== */
+
+@media screen and (max-width:768px){
+
+.answer{
+position:static;
+margin:15px auto;
+text-align:center;
+}
+
+.wrapper{
+padding:10px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+  
+<div class="wrapper">
+
+<div class="title-area">
+    <img src="betastep_title.png" class="title-image">
+</div>
+  
+<div class="answer a1 left">
+  <input type="text" id="a1" placeholder="最終回答を入力">
+</div>
+
+<div class="center-check">
+  <button onclick="check()">判定</button>
+  <p id="result"></p>
+</div>
+
+<div class="clear-area" id="clearArea">
+  <p class="clear-text"> 正解！ </p>
+
+  <p>
+    作者：
+    <a href="https://x.com/CctieG" target="_blank">
+      ゐぬ娘
+    </a>
+  </p>
+
+  <p>
+    <a id="tweetLink" target="_blank">
+      クリアをツイートする
+    </a>
+  </p>
+</div>
+
+</div>
+
+<script>
+
+function check(){
+
+var result = document.getElementById("result");
+var clearArea = document.getElementById("clearArea");
+
+
+result.innerHTML = "";
+clearArea.classList.remove("show");
+
+var a1=document.getElementById("a1").value;
+
+var list1 = ["クロニクル","くろにくる"];
+
+if(
+list1.includes(a1)
+){
+ // 表示する
+    document.getElementById("clearArea").classList.add("show");
+
+    // ツイート内容を生成
+    var tweetText = "一緒にステップを踏もうぜ。";
+    var tweetURL = "https://twitter.com/intent/tweet?text="
+      + encodeURIComponent(tweetText);
+    document.getElementById("tweetLink").href = tweetURL;
+}else{
+document.getElementById("result").innerHTML="何かが違うようです";
+}
+
+}
+
+</script>
+
+</body>
+</html>
